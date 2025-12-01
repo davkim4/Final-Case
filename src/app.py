@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from .etl import run_etl
+from etl import run_etl
 import json
 
 app = Flask(__name__)
