@@ -50,14 +50,14 @@ curl http://localhost:5000/data
 I chose this containerized ETL microservice because it uses many key course concepts: reproducibility, API design, automation, and deployment. Docker ensures anyone can run the service identically across machines. On the other hand, the alternatives of FastAPI, Airflow/Prefect, and SQL database were unused for the reasons of being overkill for simple ETL API (FastAPI), too heavy for a small project (Airflow/Prefect), and because JSON-only was simpler and met requirements (SQL database).
 
 ### Tradeoffs
-- Simplicity vs Scalability: Flask is lightweight but not ideal for large-scale ETL.
-- JSON I/O vs Database: Easy to use; less flexible for large datasets.
-- Single-file container: Fast demo; not production-grade structure.
+- Simplicity vs Scalability: Flask is lightweight but not ideal for large-scale ETL
+- JSON I/O vs Database: Easy to use; less flexible for large datasets
+- Single-file container: Fast demo; not production-grade structure
 
 ### Security & Privacy
-- .env.example created to avoid committing secrets.
-- No PII data.
-- Input files are validated implicitly via Pandas parsing.
+- .env.example created to avoid committing secrets
+- No PII data
+- Input files are validated implicitly via Pandas parsing
 
 ### Ops
 - Custom logger in src/logger.py
@@ -70,20 +70,36 @@ I chose this containerized ETL microservice because it uses many key course conc
 /data → returns processed JSON like:
 ```json
 [
-  {"id": 1, "value": 10, "value_squared": 100, "tag": "low"},
-  {"id": 7, "value": 99, "value_squared": 9801, "tag": "high"}
+  {"id":1,"value":10,"value_squared":100,"tag":"low"},
+  {"id":2,"value":80,"value_squared":6400,"tag":"high"},
+  {"id":3,"value":48,"value_squared":2304,"tag":"low"},
+  {"id":4,"value":5,"value_squared":25,"tag":"low"},
+  {"id":5,"value":23,"value_squared":529,"tag":"low"},
+  {"id":6,"value":12,"value_squared":144,"tag":"low"},
+  {"id":7,"value":99,"value_squared":9801,"tag":"high"},
+  {"id":8,"value":67,"value_squared":4489,"tag":"high"},
+  {"id":9,"value":34,"value_squared":1156,"tag":"low"},
+  {"id":10,"value":50,"value_squared":2500,"tag":"low"}
 ]
 ```
 
 ### Tests
-tests/test_api.py includes smoke tests for both endpoints.
-CI runs the test suite automatically on every push.
+- tests/test_api.py includes smoke tests for both endpoints.
+- CI runs the test suite automatically on every push.
 
 ### Performance
-ETL completes < 0.1s for 10 rows.
-Memory footprint extremely small (<100MB during runtime).
+- ETL completes < 0.1s for 10 rows.
+- Memory footprint extremely small (<100MB during runtime).
 
 ### Screenshots
+Products of the Local Service URL (http://localhost:5000/run and http://localhost:5000/data)
+
+ETL Run Endpoint:
+![Run endpoint screenshot](assets/run.png)
+
+Processed Data Endpoint
+![Data endpoint screenshot](assets/data.png)
+
 
 ## 6) What's Next
 ### Planned improvements
@@ -97,4 +113,3 @@ Add automated load tests in CI
 
 ## 7) Links
 Github Repo: github.com/davkim4/Final-Case
-Public Cloud App: 
