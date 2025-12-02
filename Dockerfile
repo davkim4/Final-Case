@@ -7,9 +7,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ src/
 
-ENV FLASK_APP=src/app.py
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 5000
 
-CMD ["python", "src/app.py"]
+CMD ["python", "-m", "src.app"]

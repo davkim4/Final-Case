@@ -1,4 +1,12 @@
 [
     {"id": 1, "value": 10},
-    {"id": 2, "value": 80}
+    {"id": 2, "value": 80},
+    {"id": 3, "value": 48},
+    {"id": 4, "value": 5},
+    {"id": 5, "value": 23},
+    {"id": 6, "value": 12},
+    {"id": 7, "value": 99},
+    {"id": 8, "value": 67},
+    {"id": 9, "value": 34},
+    {"id": 10, "value": 50}
 ]

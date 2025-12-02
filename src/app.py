@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
-from etl import run_etl
+from .etl import run_etl
 import json
+from pathlib import Path
 
 app = Flask(__name__)
 
@@ -11,8 +12,7 @@ def run():
 
 @app.route("/data", methods=["GET"])
 def get_data():
-    with open("src/processed.json") as f:
-        return jsonify(json.load(f))
+    return jsonify(json.loads(Path("src/processed.json").read_text()))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
