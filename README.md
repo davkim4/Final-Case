@@ -18,9 +18,9 @@ Containerization (Docker) – reproducible execution environment
 Microservices – API exposing /run and /data
 ETL Pipelines – Extract–Transform–Load via Pandas
 CI Automation – GitHub Actions that build, test, and lint the service
-Cloud Deployment (optional) – Azure Container Apps / Container Registry
 
 ### Architecture Diagram
+![Architecture Diagram](assets/architecture.png)
 
 ### Data / Models / Services
 Raw Data - src/db.json (10 rows of simple numeric values)
@@ -36,35 +36,33 @@ CI Pipeline - GitHub Actions workflow running pytest
 docker build -t etl-api .
 
 # run
-docker run --rm -p 5050:5000 etl-api
+docker run --rm -p 5000:5000 etl-api
 
 # trigger ETL
-curl http://localhost:5050/run
+curl http://localhost:5000/run
 
 # view processed data
-curl http://localhost:5050/data
+curl http://localhost:5000/data
 ```
 
 ## 4) Design Decisions
 ### Why this concept?
-I chose a containerized ETL microservice because it touches on key course concepts: reproducibility, API design, automation, and deployment. Docker ensures anyone can run the service identically across machines. On the other hand, the alternatives of FastAPI, Airflow/Prefect, and SQL database were unused for the reasons of being overkill for simple ETL API (FastAPI), too heavy for a small project (Airflow/Prefect), and because JSON-only was simpler and met requirements (SQL database).
-
-Alternatives Considered:
+I chose this containerized ETL microservice because it uses many key course concepts: reproducibility, API design, automation, and deployment. Docker ensures anyone can run the service identically across machines. On the other hand, the alternatives of FastAPI, Airflow/Prefect, and SQL database were unused for the reasons of being overkill for simple ETL API (FastAPI), too heavy for a small project (Airflow/Prefect), and because JSON-only was simpler and met requirements (SQL database).
 
 ### Tradeoffs
-Simplicity vs Scalability: Flask is lightweight but not ideal for large-scale ETL.
-JSON I/O vs Database: Easy to use; less flexible for large datasets.
-Single-file container: Fast demo; not production-grade structure.
+- Simplicity vs Scalability: Flask is lightweight but not ideal for large-scale ETL.
+- JSON I/O vs Database: Easy to use; less flexible for large datasets.
+- Single-file container: Fast demo; not production-grade structure.
 
 ### Security & Privacy
-.env.example created to avoid committing secrets.
-No PII data.
-Input files are validated implicitly via Pandas parsing.
+- .env.example created to avoid committing secrets.
+- No PII data.
+- Input files are validated implicitly via Pandas parsing.
 
 ### Ops
-Custom logger in src/logger.py
-No metrics system yet (future improvement)
-Can be scaled horizontally if deployed as a container app
+- Custom logger in src/logger.py
+- No metrics system yet (future improvement)
+- Can be scaled horizontally if deployed as a container app
 
 ## 5) Results & Evaluation
 ### Sample Outputs
